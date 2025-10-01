@@ -95,3 +95,28 @@ renderStudents();
 document.addEventListener("keydown", (e) => {//when you press enter the addStudent() executes 
   if (e.key === "Enter") addStudent();
 });
+//Added arrow keys to navigate swiftly
+let inputs = [
+  document.getElementById("admno"),
+  document.getElementById("name"),
+  document.getElementById("score"),
+  document.getElementById("btn") 
+];
+
+inputs.forEach((input, index) => {
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault(); // prevent cursor moving inside inputs
+      if (index + 1 < inputs.length) {
+        inputs[index + 1].focus();
+      }
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (index - 1 >= 0) {
+        inputs[index - 1].focus();
+      }
+    }
+  });
+});
+
