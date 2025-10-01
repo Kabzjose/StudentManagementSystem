@@ -4,6 +4,7 @@ let input3=document.getElementById("score")
 let button=document.getElementById("btn")
 
 
+
 let students = JSON.parse(localStorage.getItem("students")) || [];
 
 //addding students
@@ -75,7 +76,7 @@ function renderStudents(){
         let deletebtn=document.createElement("button")
         deletebtn.innerText="Delete"
         deletebtn.addEventListener("click",()=>{
-            let confirmation = confirm(`Are you sure you want to delete ${student.name}?`);
+            let confirmation = confirm(`Are you sure you want to delete ${student.name}?`);//Confirm before deleting aa student
   if (confirmation) {
             students.splice(index,1)//remove from array
             localStorage.setItem("students",JSON.stringify(students))//update storage
@@ -91,6 +92,6 @@ function renderStudents(){
 }
 renderStudents();
 
-input1.addEventListener("keydown", (e) => {//when you press enter the addStudent() executes 
+document.addEventListener("keydown", (e) => {//when you press enter the addStudent() executes 
   if (e.key === "Enter") addStudent();
 });
