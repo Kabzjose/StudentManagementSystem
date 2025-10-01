@@ -12,7 +12,6 @@ function addStudent(){
     if (input1.value.trim() === "" || input2.value.trim() === "" ||input3.value.trim() === "")  return;//prevent empty inputs
     
     let name = input2.value.trim();//remove any spaces
-
     let score = Number(input3.value.trim());
     let admission = String(input1.value.trim()); 
 
@@ -76,9 +75,12 @@ function renderStudents(){
         let deletebtn=document.createElement("button")
         deletebtn.innerText="Delete"
         deletebtn.addEventListener("click",()=>{
+            let confirmation = confirm(`Are you sure you want to delete ${student.name}?`);
+  if (confirmation) {
             students.splice(index,1)//remove from array
             localStorage.setItem("students",JSON.stringify(students))//update storage
             renderStudents()  //refresh table
+        }
         });
         actiontd.append(deletebtn)
         tr.appendChild(actiontd)
