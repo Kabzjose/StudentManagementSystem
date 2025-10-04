@@ -70,21 +70,7 @@ function renderStudents() {
     let scoretd = document.createElement("td");
     scoretd.innerText = student.score;
     tr.appendChild(scoretd);
-    //Edit button
-    let editBtn = document.createElement("button");
-    editBtn.innerText = "Edit";
-    actiontd.appendChild(editBtn);
-    editBtn.addEventListener("click", () => {
-      let newName = prompt("Enter new name:", student.name);
-      let newScore = prompt("Enter new score:", student.score);
-
-      if (newName && newScore !== null) {
-        students[index].name = newName;
-        students[index].score = Number(newScore);
-        addStudent();
-        renderStudents();
-      }
-    });
+   
 
     //Action cell -delete button
     let actiontd = document.createElement("td");
