@@ -174,5 +174,34 @@ input[type="number"]:focus {
     width: 100%;
   }
 }
+/* Edit button */
+table button:nth-child(1) {
+    background-color: #33f12c; /* green */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+table button:nth-child(1):hover {
+    background-color: #45a049; /* darker green on hover */
+}
+
+/* Delete button */
+table button:nth-child(2) {
+    background-color: #f44336; /* red */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+table button:nth-child(2):hover {
+    background-color: #da190b; /* darker red on hover */
+}
 
 

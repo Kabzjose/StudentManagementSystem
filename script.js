@@ -1,25 +1,24 @@
-let input1 = document.getElementById("admno");
-let input2 = document.getElementById("name");
-let input3 = document.getElementById("score");
-let button = document.getElementById("btn");
+const input1 = document.getElementById("admno");
+const input2 = document.getElementById("name");
+const input3 = document.getElementById("score");
+const button = document.getElementById("btn");
 
 let students = JSON.parse(localStorage.getItem("students")) || [];
 
-//addding students
-
+// Add or update student
 function addStudent() {
   if (
     input1.value.trim() === "" ||
     input2.value.trim() === "" ||
     input3.value.trim() === ""
   )
-    return; //prevent empty inputs
+    return; // prevent empty inputs
 
-  let name = input2.value.trim(); //remove any spaces
+  let name = input2.value.trim();
   let score = Number(input3.value.trim());
   let admission = String(input1.value.trim());
 
-  // allow only alphabets and spaces
+  // Only alphabets for name
   if (!/^[A-Za-z\s]+$/.test(name)) {
     alert("Name should only contain letters.");
     return;
@@ -27,8 +26,8 @@ function addStudent() {
 
   // Admission must be exactly 5 digits
   if (admission.length !== 5 || isNaN(admission)) {
-    alert("Admission number must be exactly 5 digits");
-    return; // stop adding student
+    alert("Admission number must be exactly 5 digits.");
+    return;
   }
 
   // Validate score
@@ -37,89 +36,103 @@ function addStudent() {
     return;
   }
 
+  // Add new student
   students.push({
-    admno: input1.value,
-    name: input2.value,
-    score: input3.value,
+    admno: admission,
+    name: name,
+    score: score,
   });
+
   localStorage.setItem("students", JSON.stringify(students));
   input1.value = "";
   input2.value = "";
   input3.value = "";
+  button.innerText = "Add Student"; // reset button text 
   renderStudents();
 }
 
-button.addEventListener("click", addStudent);
-
+// Render students in table
 function renderStudents() {
-  let tbody = document.getElementById("tablebody");
-  tbody.innerHTML = ""; //clear existing rows
+  const tbody = document.getElementById("tablebody");
+  tbody.innerHTML = ""; // clear existing rows
 
-  //looping through students array and creating rows
   students.forEach((student, index) => {
-    let tr = document.createElement("tr");
-    //Admission number cell
-    let admnotd = document.createElement("td");
+    const tr = document.createElement("tr");
+
+    const admnotd = document.createElement("td");
     admnotd.innerText = student.admno;
     tr.appendChild(admnotd);
-    //name the cell
-    let nametd = document.createElement("td");
+
+    const nametd = document.createElement("td");
     nametd.innerText = student.name;
     tr.appendChild(nametd);
-    //score cell
-    let scoretd = document.createElement("td");
+
+    const scoretd = document.createElement("td");
     scoretd.innerText = student.score;
     tr.appendChild(scoretd);
-   
 
-    //Action cell -delete button
-    let actiontd = document.createElement("td");
-    let deletebtn = document.createElement("button");
+    // Action cell with Edit and Delete
+    const actiontd = document.createElement("td");
+
+    // Edit button
+    const editbtn = document.createElement("button");
+    editbtn.innerText = "Edit";
+    editbtn.style.marginRight = "5px";
+    editbtn.addEventListener("click", () => {
+      input1.value = student.admno;
+      input2.value = student.name;
+      input3.value = student.score;
+      button.innerText = "Update Student";
+
+      // Temporarily remove student to update later
+      students.splice(index, 1);
+      localStorage.setItem("students", JSON.stringify(students));
+      renderStudents();
+    });
+    actiontd.appendChild(editbtn);
+
+    // Delete button
+    const deletebtn = document.createElement("button");
     deletebtn.innerText = "Delete";
     deletebtn.addEventListener("click", () => {
-      let confirmation = confirm(
+      const confirmation = confirm(
         `Are you sure you want to delete ${student.name}?`
-      ); //Confirm before deleting aa student
+      );
       if (confirmation) {
-        students.splice(index, 1); //remove from array
-        localStorage.setItem("students", JSON.stringify(students)); //update storage
-        renderStudents(); //refresh table
+        students.splice(index, 1);
+        localStorage.setItem("students", JSON.stringify(students));
+        renderStudents();
       }
     });
-    actiontd.append(deletebtn);
-    tr.appendChild(actiontd);
+    actiontd.appendChild(deletebtn);
 
-    //add row to table
+    tr.appendChild(actiontd);
     tbody.appendChild(tr);
   });
 }
+
+// Initial render
 renderStudents();
 
+// Enter key adds or updates student
 document.addEventListener("keydown", (e) => {
-  //when you press enter the addStudent() executes
   if (e.key === "Enter") addStudent();
 });
-//Added arrow keys to navigate swiftly
-let inputs = [
-  document.getElementById("admno"),
-  document.getElementById("name"),
-  document.getElementById("score"),
-  document.getElementById("btn"),
-];
 
+// Button click
+button.addEventListener("click", addStudent);
+
+// Arrow key navigation between inputs and button
+const inputs = [input1, input2, input3, button];
 inputs.forEach((input, index) => {
   input.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") {
-      e.preventDefault(); // prevent cursor moving inside inputs
-      if (index + 1 < inputs.length) {
-        inputs[index + 1].focus();
-      }
+      e.preventDefault();
+      if (index + 1 < inputs.length) inputs[index + 1].focus();
     }
     if (e.key === "ArrowLeft") {
       e.preventDefault();
-      if (index - 1 >= 0) {
-        inputs[index - 1].focus();
-      }
+      if (index - 1 >= 0) inputs[index - 1].focus();
     }
   });
 });
