@@ -2,8 +2,11 @@ const input1 = document.getElementById("admno");
 const input2 = document.getElementById("name");
 const input3 = document.getElementById("score");
 const button = document.getElementById("btn");
+const averageScore=document.getElementById("average")
 
 let students = JSON.parse(localStorage.getItem("students")) || [];
+
+
 
 // Add or update student
 function addStudent() {
@@ -49,6 +52,7 @@ function addStudent() {
   input3.value = "";
   button.innerText = "Add Student"; // reset button text 
   renderStudents();
+  average()
 }
 
 // Render students in table
@@ -87,6 +91,7 @@ function renderStudents() {
       // Temporarily remove student to update later
       students.splice(index, 1);
       localStorage.setItem("students", JSON.stringify(students));
+      average()
       renderStudents();
     });
     actiontd.appendChild(editbtn);
@@ -100,15 +105,18 @@ function renderStudents() {
       );
       if (confirmation) {
         students.splice(index, 1);
-        localStorage.setItem("students", JSON.stringify(students));
+        localStorage.setItem("students", JSON.stringify(students));//update local storage after deletion
         renderStudents();
+        average()
       }
+      
     });
     actiontd.appendChild(deletebtn);
 
     tr.appendChild(actiontd);
     tbody.appendChild(tr);
   });
+  average()
 }
 
 // Initial render
@@ -136,3 +144,15 @@ inputs.forEach((input, index) => {
     }
   });
 });
+
+function average() {
+  if (students.length === 0) {
+    averageScore.innerText = "No students yet";
+    return;
+  }
+
+  const scores = students.map(student => Number(student.score)); // ensure numeric
+  const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+
+  averageScore.innerText = avg.toFixed(2); // show 2 decimal places
+}
