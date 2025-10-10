@@ -156,3 +156,24 @@ function average() {
 
   averageScore.innerText = avg.toFixed(2); // show 2 decimal places
 }
+//sorting button
+let Ascending=true; //ascending order
+const sortBtn=document.getElementById("sortBtn")
+sortBtn.addEventListener("click",()=>{
+  if(students.length===0){
+    alert("No students to sort");
+    return
+  }
+  //sort students based on scores
+  students.sort((a,b)=>{
+    return Ascending ?a.score-b.score:b.score-a.score;
+
+  });
+  //toggle direction
+  Ascending=!Ascending;
+  // update button text
+  sortBtn.innerText=Ascending? "Sort by Score ⬆️":"Sort by Score ⬇️"
+  //save sorted list
+  localStorage.setItem("students",JSON.stringify(students))
+  renderStudents()
+})

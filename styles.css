@@ -226,5 +226,20 @@ table button:nth-child(2):hover {
   transform: scale(1.05);
   background: linear-gradient(90deg, #0056d1, #00a0d1);
 }
+#sortBtn {
+  background-color: #4b8ef1;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+  margin-left: 10px;
+}
+
+#sortBtn:hover {
+  background-color: #3368d1;
+}
 
 
