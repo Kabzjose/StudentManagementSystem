@@ -1,3 +1,8 @@
+//redirect to log in if not logged in
+if(localStorage.getItem("loggedIn")!== "true"){
+  window.location.href="login.html"
+}
+
 const input1 = document.getElementById("admno");
 const input2 = document.getElementById("name");
 const input3 = document.getElementById("score");
@@ -177,3 +182,9 @@ sortBtn.addEventListener("click",()=>{
   localStorage.setItem("students",JSON.stringify(students))
   renderStudents()
 })
+
+ //logout button
+ document.getElementById("logout").addEventListener("click",()=>{
+  localStorage.removeItem("loggedIn")
+  window.location.href="login.html"
+ })

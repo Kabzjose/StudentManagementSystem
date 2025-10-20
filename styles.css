@@ -241,5 +241,72 @@ table button:nth-child(2):hover {
 #sortBtn:hover {
   background-color: #3368d1;
 }
+.login {
+  width: 300px;
+  margin: 100px auto;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px gray;
+  display: flex;
+  flex-direction:column;
+  gap: 15px;
+  background: #fff;
+}
+
+.login input {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.login button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login button:hover {
+  background: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+/* Logout Button Style */
+.logout {
+  background-color: #dc3545; /* red */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  top: 20px;
+  right: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect */
+.logout:hover {
+  background-color: #fa4255; 
+  transform: scale(1.05);
+}
+
+/* Optional: If you want to place it neatly for mobile view */
+@media (max-width: 600px) {
+  .logout {
+    top: 10px;
+    right: 10px;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
 
 
